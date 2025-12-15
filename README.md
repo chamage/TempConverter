@@ -239,7 +239,7 @@ mvn clean install -DskipTests
 ## Features to Add (Future Enhancements)
 
 - [ ] Add Kelvin temperature scale
-- [ ] Export history to CSV/JSON
+- [x] Export history to CSV/JSON
 - [ ] User authentication and personal history
 - [x] Dark mode toggle
 - [ ] Batch conversion
