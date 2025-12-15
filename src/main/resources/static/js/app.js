@@ -9,6 +9,9 @@ const saveBtn = document.getElementById('saveBtn');
 const nicknameInput = document.getElementById('nicknameInput');
 const historyList = document.getElementById('historyList');
 const clearHistoryBtn = document.getElementById('clearHistoryBtn');
+const generateCsvBtn = document.getElementById('generateCsvBtn');
+const generateJsonBtn = document.getElementById('generateJsonBtn');
+const generateHtmlBtn = document.getElementById('generateHtmlBtn');
 const toastNotification = document.getElementById('toastNotification');
 const toastMessage = document.getElementById('toastMessage');
 const themeToggle = document.getElementById('themeToggle');
@@ -25,6 +28,9 @@ document.addEventListener('DOMContentLoaded', () => {
     convertBtn.addEventListener('click', convertTemperature);
     saveBtn.addEventListener('click', saveToHistory);
     clearHistoryBtn.addEventListener('click', clearAllHistory);
+    generateCsvBtn.addEventListener('click', generateCsvReport);
+    generateJsonBtn.addEventListener('click', generateJsonReport);
+    generateHtmlBtn.addEventListener('click', generateHtmlReport);
     themeToggle.addEventListener('click', toggleTheme);
 
     // Enter key to convert
@@ -348,3 +354,96 @@ function updateThemeIcon(isDark) {
     }
 }
 
+// Report Generation Functions
+
+// Generate CSV Report
+async function generateCsvReport() {
+    try {
+        generateCsvBtn.innerHTML = '<span class="spinner-border spinner-border-sm me-1"></span>CSV';
+        generateCsvBtn.disabled = true;
+
+        const response = await fetch('/api/temperature/report/csv');
+
+        if (!response.ok) {
+            throw new Error('Failed to generate CSV report');
+        }
+
+        const blob = await response.blob();
+        downloadFile(blob, 'temperature-conversions.csv', 'text/csv');
+
+        showToast('CSV report downloaded successfully!', 'success');
+    } catch (error) {
+        console.error('Error generating CSV:', error);
+        showToast('Failed to generate CSV report', 'danger');
+    } finally {
+        generateCsvBtn.innerHTML = '<i class="bi bi-file-earmark-spreadsheet"></i> CSV';
+        generateCsvBtn.disabled = false;
+    }
+}
+
+// Generate JSON Report
+async function generateJsonReport() {
+    try {
+        generateJsonBtn.innerHTML = '<span class="spinner-border spinner-border-sm me-1"></span>JSON';
+        generateJsonBtn.disabled = true;
+
+        const response = await fetch('/api/temperature/report/json');
+
+        if (!response.ok) {
+            throw new Error('Failed to generate JSON report');
+        }
+
+        const blob = await response.blob();
+        downloadFile(blob, 'temperature-conversions.json', 'application/json');
+
+        showToast('JSON report downloaded successfully!', 'success');
+    } catch (error) {
+        console.error('Error generating JSON:', error);
+        showToast('Failed to generate JSON report', 'danger');
+    } finally {
+        generateJsonBtn.innerHTML = '<i class="bi bi-file-earmark-code"></i> JSON';
+        generateJsonBtn.disabled = false;
+    }
+}
+
+// Generate HTML Report
+async function generateHtmlReport() {
+    try {
+        generateHtmlBtn.innerHTML = '<span class="spinner-border spinner-border-sm me-1"></span>HTML';
+        generateHtmlBtn.disabled = true;
+
+        const response = await fetch('/api/temperature/report/html');
+
+        if (!response.ok) {
+            throw new Error('Failed to generate HTML report');
+        }
+
+        const html = await response.text();
+
+        // Open in new window
+        const newWindow = window.open('', '_blank');
+        newWindow.document.write(html);
+        newWindow.document.close();
+
+        showToast('HTML report opened in new window!', 'success');
+    } catch (error) {
+        console.error('Error generating HTML:', error);
+        showToast('Failed to generate HTML report', 'danger');
+    } finally {
+        generateHtmlBtn.innerHTML = '<i class="bi bi-file-earmark-text"></i> HTML';
+        generateHtmlBtn.disabled = false;
+    }
+}
+
+// Helper function to download files
+function downloadFile(blob, filename, mimeType) {
+    const url = window.URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.style.display = 'none';
+    a.href = url;
+    a.download = filename;
+    document.body.appendChild(a);
+    a.click();
+    window.URL.revokeObjectURL(url);
+    document.body.removeChild(a);
+}

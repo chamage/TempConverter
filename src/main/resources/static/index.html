@@ -124,12 +124,25 @@
             <!-- Right Side - History -->
             <div class="col-lg-6 bg-light d-flex align-items-center justify-content-center p-5">
                 <div class="history-section w-100">
-                    <div class="d-flex justify-content-between align-items-center mb-4">
+                    <div class="d-flex justify-content-between align-items-center mb-3">
                         <h2 class="fw-bold">
                             <i class="bi bi-clock-history"></i> Conversion History
                         </h2>
                         <button class="btn btn-outline-danger" id="clearHistoryBtn">
                             <i class="bi bi-trash"></i> Clear All
+                        </button>
+                    </div>
+
+                    <!-- Report Generation Buttons -->
+                    <div class="d-flex gap-2 mb-3 report-buttons">
+                        <button class="btn btn-sm btn-outline-secondary flex-fill" id="generateCsvBtn" title="Download CSV Report">
+                            <i class="bi bi-file-earmark-spreadsheet"></i> CSV
+                        </button>
+                        <button class="btn btn-sm btn-outline-secondary flex-fill" id="generateJsonBtn" title="Download JSON Report">
+                            <i class="bi bi-file-earmark-code"></i> JSON
+                        </button>
+                        <button class="btn btn-sm btn-outline-secondary flex-fill" id="generateHtmlBtn" title="View HTML Report">
+                            <i class="bi bi-file-earmark-text"></i> HTML
                         </button>
                     </div>
 

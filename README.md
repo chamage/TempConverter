@@ -1,141 +1,75 @@
-# 🌡️ Temperature Converter Web Application
+# Temperature Converter Web Application
 
-A modern, feature-rich web application for converting temperatures between Celsius and Fahrenheit with history tracking and nickname support. Built with Spring Boot, PostgreSQL, and a sleek responsive UI.
+A modern, slick web application for converting temperatures between Celsius and Fahrenheit. Built with Spring Boot, PostgreSQL, HTML, CSS, JavaScript, and Bootstrap.
 
-![Java](https://img.shields.io/badge/Java-21-orange)
-![Spring Boot](https://img.shields.io/badge/Spring%20Boot-3.4.0-brightgreen)
-![PostgreSQL](https://img.shields.io/badge/PostgreSQL-Database-blue)
-![Bootstrap](https://img.shields.io/badge/Bootstrap-5.3.2-purple)
+## Features
 
-## ✨ Features
+- 🌡️ **Bidirectional Conversion**: Convert between Celsius and Fahrenheit
+- 💾 **Save History**: Optional saving of conversions to PostgreSQL database
+- 📊 **View History**: Display all saved conversions with timestamps
+- 🗑️ **Delete History**: Remove individual items or clear all history
+- 🎨 **Modern UI**: Beautiful, responsive design with animations
+- 📱 **Mobile Friendly**: Works seamlessly on all devices
 
-- 🔄 **Bidirectional Conversion**: Convert between Celsius and Fahrenheit with precise calculations
-- 💾 **Smart History Saving**: Save conversions with optional custom nicknames for easy reference
-- 🏷️ **Nickname Support**: Add meaningful names to your conversions (e.g., "Summer temperature", "Room temp")
-- 📊 **History Management**: View, search, and manage all saved conversions
-- 🗑️ **Flexible Deletion**: Remove individual items or clear all history at once
-- 🌓 **Dark Mode**: Toggle between light and dark themes with smooth transitions
-- 🎨 **Modern UI**: Beautiful, animated interface with gradient backgrounds
-- 📱 **Fully Responsive**: Seamless experience across all devices and screen sizes
-- 📚 **Swagger API Documentation**: Interactive API explorer with full documentation
-- 🔐 **Environment Variables**: Secure credential management with `.env` file support
-- ⚡ **Real-time Updates**: Instant feedback and smooth animations
-
-## 🚀 Tech Stack
+## Tech Stack
 
 ### Backend
-- **Java 21** - Modern Java features
-- **Spring Boot 3.4.0** - Application framework
-- **Spring Data JPA** - Database abstraction
-- **Spring Web** - REST API
-- **PostgreSQL** - Relational database
-- **Lombok** - Reduce boilerplate code
-- **Swagger/OpenAPI 3** - API documentation
+- **Java 21**
+- **Spring Boot 4.0.0**
+- **Spring Data JPA**
+- **PostgreSQL**
+- **Lombok**
 
 ### Frontend
-- **HTML5** - Semantic markup
-- **CSS3** - Custom animations and dark mode
-- **JavaScript (ES6+)** - Modern async/await patterns
-- **Bootstrap 5.3.2** - Responsive framework
-- **Bootstrap Icons** - Beautiful icon set
-- **Google Fonts (Poppins)** - Modern typography
+- **HTML5**
+- **CSS3** with animations
+- **JavaScript (ES6+)**
+- **Bootstrap 5.3.2**
+- **Bootstrap Icons**
 
-## 📋 Prerequisites
+## Prerequisites
 
-Before running this application, ensure you have:
+Before running this application, make sure you have:
 
-- ☕ **Java 21** or higher ([Download](https://adoptium.net/))
-- 📦 **Maven 3.6+** (or use included Maven wrapper)
-- 🐘 **PostgreSQL 12+** ([Download](https://www.postgresql.org/download/))
+1. **Java 21** or higher installed
+2. **Maven** installed
+3. **PostgreSQL** installed and running
 
-## 🛠️ Installation & Setup
+## Database Setup
 
-### 1. Clone the Repository
-
-```bash
-git clone https://github.com/yourusername/TempConverter.git
-cd TempConverter
-```
-
-### 2. Database Setup
-
-#### Create Database
-
-Open PostgreSQL terminal (psql) and create the database:
+1. Install PostgreSQL if not already installed
+2. Create a database named `tempconverter`:
 
 ```sql
 CREATE DATABASE tempconverter;
 ```
 
-#### Configure Environment Variables
-
-Create a `.env` file in the project root directory:
+3. Create a `.env` file in the project root directory:
 
 ```bash
-# Windows PowerShell
-New-Item -Path .env -ItemType File
-
-# Linux/Mac
-touch .env
+# Copy the example file
+cp .env.example .env
 ```
 
-Add your database credentials to `.env`:
+4. Update the `.env` file with your database credentials:
 
 ```properties
 # Database Configuration
 DB_URL=jdbc:postgresql://localhost:5432/tempconverter
 DB_USERNAME=postgres
-DB_PASSWORD=your_secure_password_here
+DB_PASSWORD=your_password_here
 
-# Server Configuration (optional)
+# Server Configuration
 SERVER_PORT=8080
 ```
 
-**🔒 Security Note:** The `.env` file is automatically excluded from version control via `.gitignore`. Never commit sensitive credentials!
+**Important:** The `.env` file contains sensitive credentials and should never be committed to version control. It's already included in `.gitignore`.
 
-#### Configure IntelliJ IDEA to Use .env File
+The application will automatically create the required tables on startup using Hibernate.
 
-To make IntelliJ IDEA load environment variables from the `.env` file:
+## Installation & Running
 
-1. Install the **EnvFile** plugin:
-   - Go to `File` → `Settings` → `Plugins`
-   - Search for "EnvFile"
-   - Install and restart IntelliJ
-
-2. Configure Run Configuration:
-   - Go to `Run` → `Edit Configurations...`
-   - Select your Spring Boot application
-   - Click on the `EnvFile` tab
-   - Check "Enable EnvFile"
-   - Click `+` → Select your `.env` file
-   - Apply and OK
-
-**Alternative (Without Plugin):**
-- Manually set environment variables in Run Configuration:
-  - `Run` → `Edit Configurations...`
-  - Add environment variables in the "Environment variables" field
-
-### 3. Build the Application
-
-Using Maven wrapper (recommended):
-
-```bash
-# Windows
-.\mvnw.cmd clean install
-
-# Linux/Mac
-./mvnw clean install
-```
-
-Or using Maven directly:
-
-```bash
-mvn clean install
-```
-
-### 4. Run the Application
-
-#### Option 1: Using Maven Wrapper (Recommended)
+### Option 1: Using Maven Wrapper (Recommended)
 
 ```bash
 # Windows
@@ -145,431 +79,182 @@ mvn clean install
 ./mvnw spring-boot:run
 ```
 
-#### Option 2: Using Maven
+### Option 2: Using Maven
 
 ```bash
 mvn spring-boot:run
 ```
 
-#### Option 3: Run as JAR
+### Option 3: Build and Run JAR
 
 ```bash
-# Build JAR
-mvn clean package -DskipTests
+# Build
+mvn clean package
 
-# Run JAR
+# Run
 java -jar target/TempConverter-0.0.1-SNAPSHOT.jar
 ```
 
-### 5. Verify Installation
+## Accessing the Application
 
-The application will start on `http://localhost:8080`. You should see console output indicating successful startup:
+Once the application is running, open your browser and navigate to:
 
-```
-Started TempConverterApplication in X.XXX seconds
-```
-
-## 🎯 Usage Guide
-
-### Web Interface
-
-#### Access the Application
-
-Open your browser and navigate to:
 ```
 http://localhost:8080
 ```
 
-#### Converting Temperatures
+## Usage
 
-1. **Enter Temperature Value**
-   - Type a number in the input field (decimals supported)
-   - Example: `25.5`, `100`, `-40`
+1. **Convert Temperature**:
+   - Enter a temperature value in the input field
+   - Select the unit you want to convert FROM (Celsius or Fahrenheit)
+   - Click the "Convert" button or press Enter
+   - The result will be displayed with the conversion formula
 
-2. **Select Unit**
-   - Choose **Celsius (°C)** or **Fahrenheit (°F)** as the source unit
-   - The conversion will automatically convert to the opposite unit
+2. **Save to History**:
+   - Toggle the "Save to History" switch ON before converting
+   - The conversion will be saved to the database
+   - View saved conversions in the History panel
 
-3. **Convert**
-   - Click the "Convert" button or press **Enter**
-   - The result appears instantly with the conversion formula
+3. **View History**:
+   - All saved conversions appear in the right panel
+   - Each entry shows the conversion and timestamp
+   - History is ordered by most recent first
 
-#### Saving to History
+4. **Delete History**:
+   - Click the trash icon on individual items to delete them
+   - Click "Clear All" button to remove all history
 
-After converting a temperature:
+## API Endpoints
 
-1. **Add Nickname (Optional)**
-   - Enter a memorable name in the "Nickname" field
-   - Examples: "Summer temperature", "Oven setting", "Body temp"
-   - Leave blank if no nickname needed
+The application provides the following REST API endpoints:
 
-2. **Save**
-   - Click the "Save to History" button
-   - The conversion is saved to the database with timestamp
-
-#### Managing History
-
-- **View History**: All saved conversions appear in the right panel
-- **Nicknames Display**: Shows with a tag icon (🏷️) above the conversion
-- **Delete Single Item**: Click the trash icon on any history item
-- **Clear All History**: Click the "Clear All" button to remove all items
-- **Order**: History is sorted by most recent first
-
-#### Dark Mode
-
-- Click the **moon/sun icon** in the top-right corner
-- Preference is saved in browser localStorage
-- All colors and contrasts are optimized for both modes
-
-#### API Documentation
-
-- Click the **API documentation icon** (📄) in the top-right corner
-- Opens Swagger UI in a new tab for interactive API testing
-
-### API Endpoints
-
-The application exposes a RESTful API with the following endpoints:
-
-#### 📚 Interactive API Documentation (Swagger)
-
-**Access Swagger UI:**
-```
-http://localhost:8080/swagger-ui/index.html
-```
-
-**OpenAPI Specification:**
-- JSON: `http://localhost:8080/api-docs`
-- YAML: `http://localhost:8080/api-docs.yaml`
-
-**Features:**
-- ✅ Interactive "Try it out" functionality
-- ✅ Complete request/response examples
-- ✅ Schema definitions and validation rules
-- ✅ Export to Postman, Insomnia, etc.
-
----
-
-#### 1. Convert Temperature
-
-**Endpoint:** `POST /api/temperature/convert`
-
-**Description:** Converts a temperature value from Celsius to Fahrenheit or vice versa.
-
-**Request Body:**
-```json
-{
-  "value": 25.5,
-  "fromUnit": "CELSIUS"
-}
-```
-
-**Response:**
-```json
-{
-  "inputValue": 25.5,
-  "inputUnit": "CELSIUS",
-  "outputValue": 77.9,
-  "outputUnit": "FAHRENHEIT",
-  "formula": "°F = (°C × 9/5) + 32"
-}
-```
-
-#### 2. Save Conversion to History
-
-**Endpoint:** `POST /api/temperature/save`
-
-**Description:** Saves a conversion to the database with an optional nickname.
-
-**Request Body:**
-```json
-{
-  "inputValue": 25.5,
-  "inputUnit": "CELSIUS",
-  "outputValue": 77.9,
-  "outputUnit": "FAHRENHEIT",
-  "nickname": "Summer temperature"
-}
-```
-
-**Response:**
-```json
-{
-  "id": 1,
-  "inputValue": 25.5,
-  "inputUnit": "CELSIUS",
-  "outputValue": 77.9,
-  "outputUnit": "FAHRENHEIT",
-  "nickname": "Summer temperature",
-  "timestamp": "2025-12-15T10:30:45"
-}
-```
-
-#### 3. Get Conversion History
-
-**Endpoint:** `GET /api/temperature/history`
-
-**Description:** Retrieves all saved conversions, ordered by most recent first.
-
-**Response:**
-```json
-[
-  {
-    "id": 2,
-    "inputValue": 100,
-    "inputUnit": "CELSIUS",
-    "outputValue": 212,
-    "outputUnit": "FAHRENHEIT",
-    "nickname": "Boiling point",
-    "timestamp": "2025-12-15T11:00:00"
-  },
-  {
-    "id": 1,
-    "inputValue": 25.5,
-    "inputUnit": "CELSIUS",
-    "outputValue": 77.9,
-    "outputUnit": "FAHRENHEIT",
-    "nickname": "Summer temperature",
-    "timestamp": "2025-12-15T10:30:45"
-  }
-]
-```
-
-#### 4. Delete Single History Item
-
-**Endpoint:** `DELETE /api/temperature/history/{id}`
-
-**Description:** Deletes a specific conversion from history.
-
-**Example:**
+### Convert Temperature
 ```http
-DELETE /api/temperature/history/1
+POST /api/temperature/convert
+Content-Type: application/json
+
+{
+    "value": 100,
+    "fromUnit": "CELSIUS",
+    "saveToHistory": true
+}
 ```
 
-**Response:** `200 OK`
-
-#### 5. Clear All History
-
-**Endpoint:** `DELETE /api/temperature/history`
-
-**Description:** Deletes all conversions from the database.
-
-**Response:** `200 OK`
-
-## 🔢 Conversion Formulas
-
-The application uses the following standard formulas:
-
-### Celsius to Fahrenheit
-```
-°F = (°C × 9/5) + 32
+### Get Conversion History
+```http
+GET /api/temperature/history
 ```
 
-**Example:**
-- 0°C = 32°F (Freezing point)
-- 100°C = 212°F (Boiling point)
-
-### Fahrenheit to Celsius
-```
-°C = (°F - 32) × 5/9
+### Delete Single History Item
+```http
+DELETE /api/temperature/history/{id}
 ```
 
-**Example:**
-- 32°F = 0°C (Freezing point)
-- 212°F = 100°C (Boiling point)
+### Clear All History
+```http
+DELETE /api/temperature/history
+```
 
-## 📁 Project Structure
+## Conversion Formulas
+
+- **Celsius to Fahrenheit**: °F = (°C × 9/5) + 32
+- **Fahrenheit to Celsius**: °C = (°F - 32) × 5/9
+
+## Project Structure
 
 ```
 TempConverter/
 ├── src/
 │   ├── main/
 │   │   ├── java/com/chamage/tempconverter/
-│   │   │   ├── config/
-│   │   │   │   └── OpenApiConfig.java          # Swagger configuration
 │   │   │   ├── controller/
-│   │   │   │   ├── HomeController.java         # Serves static content
-│   │   │   │   └── TemperatureController.java  # REST API endpoints
+│   │   │   │   ├── HomeController.java
+│   │   │   │   └── TemperatureController.java
 │   │   │   ├── dto/
-│   │   │   │   ├── ConversionRequest.java      # Convert request DTO
-│   │   │   │   ├── ConversionResponse.java     # Convert response DTO
-│   │   │   │   └── SaveConversionRequest.java  # Save request DTO
+│   │   │   │   ├── ConversionRequest.java
+│   │   │   │   └── ConversionResponse.java
 │   │   │   ├── model/
-│   │   │   │   └── Conversion.java             # JPA entity
+│   │   │   │   └── Conversion.java
 │   │   │   ├── repository/
-│   │   │   │   └── ConversionRepository.java   # Spring Data JPA
+│   │   │   │   └── ConversionRepository.java
 │   │   │   ├── service/
-│   │   │   │   └── TemperatureService.java     # Business logic
-│   │   │   └── TempConverterApplication.java   # Main application
+│   │   │   │   └── TemperatureService.java
+│   │   │   └── TempConverterApplication.java
 │   │   └── resources/
 │   │       ├── static/
 │   │       │   ├── css/
-│   │       │   │   └── style.css               # Custom styles + dark mode
+│   │       │   │   └── style.css
 │   │       │   ├── js/
-│   │       │   │   └── app.js                  # Frontend logic
-│   │       │   └── index.html                  # Main UI
-│   │       └── application.properties          # Spring configuration
+│   │       │   │   └── app.js
+│   │       │   └── index.html
+│   │       └── application.properties
 │   └── test/
-│       └── java/com/chamage/tempconverter/
-│           └── TempConverterApplicationTests.java
-├── .env                                         # Environment variables (not in git)
-├── .env.example                                 # Example environment file
-├── .gitignore                                   # Git ignore rules
-├── mvnw                                         # Maven wrapper (Unix)
-├── mvnw.cmd                                     # Maven wrapper (Windows)
-├── pom.xml                                      # Maven dependencies
-└── README.md                                    # This file
+├── pom.xml
+└── README.md
 ```
 
-## 🐛 Troubleshooting
+## Troubleshooting
 
 ### Database Connection Issues
 
-**Problem:** Application fails to connect to PostgreSQL
+If you encounter database connection errors:
 
-**Solutions:**
-
-1. **Verify PostgreSQL is running:**
+1. Verify PostgreSQL is running:
    ```bash
    # Windows
    Get-Service postgresql*
    
    # Linux
    sudo systemctl status postgresql
-   
-   # Mac
-   brew services list
    ```
 
-2. **Check database exists:**
+2. Check if the database exists:
    ```sql
-   -- In psql terminal
-   \l
+   \l  -- List all databases in psql
    ```
 
-3. **Verify credentials in `.env` file**
-   - Ensure username and password are correct
-   - Check database URL and port
-
-4. **Test connection manually:**
-   ```bash
-   psql -U postgres -d tempconverter
-   ```
+3. Verify credentials in `application.properties`
 
 ### Port Already in Use
 
-**Problem:** Port 8080 is occupied by another application
+If port 8080 is already in use, change it in `application.properties`:
 
-**Solution:** Change the port in `.env`:
 ```properties
-SERVER_PORT=8081
+server.port=8081
 ```
 
-Or temporarily override:
+### Build Errors
+
+If you encounter build errors:
+
 ```bash
-mvn spring-boot:run -Dspring-boot.run.arguments=--server.port=8081
+# Clean and rebuild
+mvn clean install
+
+# Skip tests if needed
+mvn clean install -DskipTests
 ```
 
-### Maven Build Errors
+## Features to Add (Future Enhancements)
 
-**Problem:** Build fails with dependency errors
+- [ ] Add Kelvin temperature scale
+- [ ] Export history to CSV/JSON
+- [ ] User authentication and personal history
+- [x] Dark mode toggle
+- [ ] Batch conversion
+- [ ] Temperature unit preferences
+- [ ] Charts and statistics
 
-**Solutions:**
+## License
 
-1. **Clean and rebuild:**
-   ```bash
-   mvn clean install -U
-   ```
+This project is open source and available under the MIT License.
 
-2. **Skip tests if failing:**
-   ```bash
-   mvn clean install -DskipTests
-   ```
+## Author
 
-3. **Clear Maven cache:**
-   ```bash
-   # Windows
-   Remove-Item -Recurse -Force "$env:USERPROFILE\.m2\repository"
-   
-   # Linux/Mac
-   rm -rf ~/.m2/repository
-   ```
+Built with ❤️ using Spring Boot and Bootstrap
 
-### Environment Variables Not Loading
+## Support
 
-**Problem:** Application can't read `.env` file
-
-**Solutions:**
-
-1. **Verify .env file exists in project root**
-2. **Check IntelliJ EnvFile plugin is installed and configured**
-3. **Manually set environment variables in Run Configuration**
-4. **Use spring-boot-dotenv dependency** (already configured in `pom.xml`)
-
-### Dark Mode Not Persisting
-
-**Problem:** Dark mode preference resets on page reload
-
-**Solution:** Clear browser localStorage and try again:
-```javascript
-// In browser console
-localStorage.clear();
-location.reload();
-```
-
-### Swagger UI Not Loading
-
-**Problem:** Cannot access Swagger documentation
-
-**Solution:** Ensure you're using the correct URL:
-```
-http://localhost:8080/swagger-ui/index.html
-```
-
-## 🚧 Future Enhancements
-
-- [ ] **Kelvin Support**: Add third temperature scale
-- [ ] **Batch Conversion**: Convert multiple temperatures at once
-- [ ] **Export History**: Download as CSV, JSON, or PDF
-- [ ] **Search & Filter**: Search history by nickname or date range
-- [ ] **User Authentication**: Personal accounts with separate histories
-- [ ] **Temperature Charts**: Visualize conversion trends
-- [ ] **Unit Preferences**: Set default units
-- [ ] **Keyboard Shortcuts**: Quick actions with hotkeys
-- [ ] **Share Conversions**: Generate shareable links
-- [x] **Dark Mode Toggle** ✅
-- [x] **Nickname Support** ✅
-- [x] **Swagger Documentation** ✅
-
-## 🤝 Contributing
-
-Contributions are welcome! Please follow these steps:
-
-1. Fork the repository
-2. Create a feature branch (`git checkout -b feature/amazing-feature`)
-3. Commit your changes (`git commit -m 'Add amazing feature'`)
-4. Push to the branch (`git push origin feature/amazing-feature`)
-5. Open a Pull Request
-
-## 📄 License
-
-This project is open source and available under the **MIT License**.
-
-## 👨‍💻 Author
-
-**Built with ❤️ by Chamage**
-
-- Using Spring Boot, PostgreSQL, and Bootstrap
-- Designed for simplicity, performance, and great UX
-
-## 📞 Support
-
-Having issues or questions?
-
-- 📧 Email: your-email@example.com
-- 🐛 Report bugs via GitHub Issues
-- 💬 Discussions on GitHub
-
----
-
-**⭐ If you find this project useful, please consider giving it a star!**
+For issues or questions, please create an issue in the repository.
 

@@ -13,6 +13,8 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -156,7 +158,63 @@ public class TemperatureController {
         temperatureService.clearAllHistory();
         return ResponseEntity.noContent().build();
     }
+
+    @Operation(
+            summary = "Generate CSV report",
+            description = "Exports all conversion history as a CSV file that can be opened in Excel or other spreadsheet applications."
+    )
+    @ApiResponses(value = {
+            @ApiResponse(
+                    responseCode = "200",
+                    description = "CSV report successfully generated",
+                    content = @Content(mediaType = "text/csv")
+            )
+    })
+    @GetMapping("/report/csv")
+    public ResponseEntity<String> generateCsvReport() {
+        String csv = temperatureService.generateCsvReport();
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.parseMediaType("text/csv"));
+        headers.setContentDispositionFormData("attachment", "temperature-conversions.csv");
+        return ResponseEntity.ok().headers(headers).body(csv);
+    }
+
+    @Operation(
+            summary = "Generate JSON report",
+            description = "Exports all conversion history as a JSON file suitable for data processing and archiving."
+    )
+    @ApiResponses(value = {
+            @ApiResponse(
+                    responseCode = "200",
+                    description = "JSON report successfully generated",
+                    content = @Content(mediaType = "application/json")
+            )
+    })
+    @GetMapping("/report/json")
+    public ResponseEntity<String> generateJsonReport() {
+        String json = temperatureService.generateJsonReport();
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_JSON);
+        headers.setContentDispositionFormData("attachment", "temperature-conversions.json");
+        return ResponseEntity.ok().headers(headers).body(json);
+    }
+
+    @Operation(
+            summary = "Generate HTML report",
+            description = "Generates a formatted HTML report of all conversion history that can be viewed in a browser or printed."
+    )
+    @ApiResponses(value = {
+            @ApiResponse(
+                    responseCode = "200",
+                    description = "HTML report successfully generated",
+                    content = @Content(mediaType = "text/html")
+            )
+    })
+    @GetMapping("/report/html")
+    public ResponseEntity<String> generateHtmlReport() {
+        String html = temperatureService.generateHtmlReport();
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.TEXT_HTML);
+        return ResponseEntity.ok().headers(headers).body(html);
+    }
 }
-
-
-
